@@ -14,27 +14,26 @@ const chat = {
             }).then(function (messages) {
                 console.log(messages);
 
-               chat.renderMessage();
+                messages.forEach(function (message) {
+
+                    const htmlString = `   
+                        <div class="messageItem">
+                        
+                            <div class="header">
+                                <span class="author">${message.author}</span>
+                                <span class="time">${message.created_at}</span>
+                            </div>
+                            <p>
+                                ${message.message}
+                            </p>
+                        </div>`;
+
+                    document.querySelector('#messageContainer').insertAdjacentHTML('beforeend', htmlString);
+                });
             });
 
     },
-    renderMessage(messages) {
-        messages.forEach(function (message) {
-
-            const htmlString = `   
-                <div class="messageItem">
-                
-                    <div class="header">
-                        <span class="author">${message.author}</span>
-                        <span class="time">${message.created_at}</span>
-                    </div>
-                    <p>
-                        ${message.message}
-                    </p>
-                </div>`;
-
-            document.querySelector('#messageContainer').append('beforeend', htmlString);
-        });
+    renderMessage(message) {
     }
 
 };

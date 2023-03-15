@@ -2,10 +2,23 @@
 
 const chat = {
     author: "yourName",
-    init() {
+    init() {    
         this.fetchMessages();
     },
     sendMessage() {
+
+        const message = {
+            author: 'Bart Simspon',
+            message: 'Hello'
+        };
+
+        fetch('https://dev2chat.onrender.com/message', {
+        method: 'POST',
+        headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(message)
+        });
     },
     fetchMessages() {
         fetch('https://dev2chat.onrender.com/messages')
@@ -14,6 +27,7 @@ const chat = {
             }).then(function (messages) {
                 console.log(messages);
 
+                document.querySelector('#messageContainer').innerHTML ="";
                 messages.forEach(function (message) {
 
                     const htmlString = `   
@@ -27,7 +41,6 @@ const chat = {
                                 ${message.message}
                             </p>
                         </div>`;
-
                     document.querySelector('#messageContainer').insertAdjacentHTML('beforeend', htmlString);
                 });
             });
